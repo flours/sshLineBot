@@ -1,0 +1,20 @@
+https-portal:
+  image: steveltn/https-portal:1
+  ports:
+    - '80:80'
+    - '443:443'
+  links:
+    - server
+  restart: always
+  environment:
+    DOMAINS: 'lineapimaster.tk -> http://server:3000'
+    STAGE: 'production'
+    # FORCE_RENEW: 'true'
+
+server:
+  build: .
+  restart: always
+  env_file:
+    - ./secret.env
+
+
